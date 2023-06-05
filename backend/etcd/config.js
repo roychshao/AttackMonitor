@@ -4,7 +4,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const client = new Etcd3({
-    hosts: process.env.ETCD_HOST,
+    hosts: [
+        `http://localhost:${process.env.ETCD1_PORT}`,
+        `http://localhost:${process.env.ETCD2_PORT}`,
+        `http://localhost:${process.env.ETCD3_PORT}`,
+    ],
 })
 
 const put = async (data) => {
