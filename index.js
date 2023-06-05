@@ -10,6 +10,8 @@ import helmet from "helmet";
 
 import dataRouter from "./routes/data.js";
 
+import Writer from "./controller/logProcessor.js";
+
 const app = express();
 dotenv.config();
 const port = process.env.PORT || 8080;
@@ -18,10 +20,26 @@ const port = process.env.PORT || 8080;
 // log to access.log
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 var accessLogStream = fs.createWriteStream(path.join(__dirname, "access.log"), {
-  flags: "a",
+    flags: "a",
 });
+
 app.use(morgan("combined", { stream: accessLogStream }));
+
+// watcher access.log
+fs.watch('access.log', (eventType, filename) => {
+    if (filename === 'access.log' && eventType === 'change') {
+        // read the latest log
+        const logData = fs.readFileSync('access.log', 'utf8');
+        const logs = logData.trim().split('\n');
+        const latestLog = logs[logs.length - 1];
+
+        // write th latest log into etcd
+        console.log(latestLog);
+        Writer(latestLog);
+    }
+});
 
 // helmet
 app.use(helmet());

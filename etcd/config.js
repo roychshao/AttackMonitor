@@ -9,7 +9,20 @@ const client = new Etcd3({
 
 const put = async (data) => {
     return new Promise(async (resolve, reject) => {
-        await client.put(`nodes/${data.sourceIP}/${data.timestamp}`).value(JSON.stringify(data))
+        /*
+         * If use log insertion, add the following lines
+         */
+        const regex = /([\w.:]+) - - \[(.*?)\]/;
+        const matches = data.match(regex);
+        var sourceIP;
+        var timestamp;
+
+        if (matches && matches.length >= 3) {
+            sourceIP = matches[1];
+            timestamp = matches[2];
+        }
+        
+        await client.put(`nodes/${sourceIP}/${timestamp}`).value(JSON.stringify(data))
             .then(() => {
                 resolve();
             })
@@ -21,28 +34,28 @@ const put = async (data) => {
 
 // register watcher
 client.watch()
-    .prefix('nodes') // 修改為你的JSON資料所在的目錄
+    .prefix('nodes')
     .create()
     .then(watcher => {
         watcher.on('data', res => {
-                /* 
-                 * res.events is a list, it may be more than one event are put into etcd
-                 */
-                if(!res)
-                    throw new Error("get no data from etcd");
+            /* 
+             * res.events is a list, it may be more than one event are put into etcd
+             */
+            if(!res)
+                throw new Error("get no data from etcd");
 
-                var key = res.events[0].kv.key;
-                var value = res.events[0].kv.value;
+            var key = res.events[0].kv.key;
+            var value = res.events[0].kv.value;
 
-                key = key.toString('utf-8');
-                value = value.toString('utf-8');
-                const data = JSON.parse(value);
+            key = key.toString('utf-8');
+            value = value.toString('utf-8');
+            const data = JSON.parse(value);
 
-                if (data.event === 'network_attack') {
-                    console.log('Received an attack from: ' + data.sourceIP);
-                    // TODO: send back to the sourceIP server and shutdown
-                }
-            })
+            if (data.includes('attack')) {
+                console.log('Received an attack on: ' + key);
+                // TODO: send back to the sourceIP server and shutdown
+            }
+        })
             .on('error', err => {
                 console.error('Error:', err);
             });
