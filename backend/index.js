@@ -14,6 +14,10 @@ import Writer from "./controller/logProcessor.js";
 
 const app = express();
 dotenv.config();
+
+// create the black list
+global.bannedIPs = [];
+
 const port = process.env.PORT || 8080;
 
 
