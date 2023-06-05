@@ -68,3 +68,6 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
     console.log(`App listening on port ${port}`);
 });
+
+// TODO: get ip from etcd to persistent the bannedIPs or not to use volume in docker (recommended)
+// TODO: make both AP and etcd run on cluster and fix .env.local in /frontend
