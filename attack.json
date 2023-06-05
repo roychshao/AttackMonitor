@@ -1,0 +1,140 @@
+{
+    "events": [
+        {
+            "event": "normal",
+            "timestamp": "2023-06-04T09:00:00Z",
+            "description": "No malicious activity detected. Network traffic is normal.",
+            "status": "OK"
+        },
+        {
+            "event": "network_attack",
+            "timestamp": "2023-06-03T14:30:00Z",
+            "sourceIP": "192.168.0.1",
+            "targetIP": "10.0.0.100",
+            "attackType": "DDoS",
+            "description": "A DDoS attack was detected. Source IP 192.168.0.1 launched a DDoS attack targeting IP 10.0.0.100.",
+            "attackID": "A1B2C3D4",
+            "protocol": "TCP",
+            "port": 80,
+            "targetService": "Web server",
+            "mitigationActions": "Activated rate limiting on the firewall to block malicious traffic."
+        },
+        {
+            "event": "network_attack",
+            "timestamp": "2023-06-03T15:45:00Z",
+            "sourceIP": "10.1.1.1",
+            "targetIP": "10.0.0.200",
+            "attackType": "SQL Injection",
+            "description": "An SQL Injection attack was detected. Source IP 10.1.1.1 attempted to exploit a vulnerability in the application.",
+            "attackID": "E5F6G7H8",
+            "protocol": "HTTP",
+            "port": 8080,
+            "targetService": "Web application",
+            "mitigationActions": "Patched the application and strengthened input validation."
+        },
+        {
+            "event": "network_attack",
+            "timestamp": "2023-06-03T16:20:00Z",
+            "sourceIP": "192.168.0.10",
+            "targetIP": "10.0.0.50",
+            "attackType": "Phishing",
+            "description": "A phishing attack was detected. Source IP 192.168.0.10 sent a fraudulent email attempting to obtain sensitive information.",
+            "attackID": "M9N8P7Q6",
+            "protocol": "SMTP",
+            "port": 25,
+            "targetService": "Email server",
+            "mitigationActions": "Implemented email filtering rules and user awareness training."
+        },
+        {
+            "event": "network_attack",
+            "timestamp": "2023-06-03T18:30:00Z",
+            "sourceIP": "192.168.0.20",
+            "targetIP": "10.0.0.75",
+            "attackType": "Brute Force",
+            "description": "A brute force attack was detected. Source IP 192.168.0.20 attempted to guess the login credentials of the target.",
+            "attackID": "V5W6X7Y8",
+            "protocol": "SSH",
+            "port": 22,
+            "targetService": "SSH server",
+            "mitigationActions": "Implemented account lockout policy and strong password requirements."
+        },
+        {
+            "event": "network_attack",
+            "timestamp": "2023-06-03T19:45:00Z",
+            "sourceIP": "10.3.3.3",
+            "targetIP": "10.0.0.250",
+            "attackType": "Cross-Site Scripting (XSS)",
+            "description": "A cross-site scripting attack was detected. Source IP 10.3.3.3 injected malicious scripts into the target web page.",
+            "attackID": "Z1A2B3C4",
+            "protocol": "HTTP",
+            "port": 8080,
+            "targetService": "Web application",
+            "mitigationActions": "Implemented output encoding and input validation on the web application."
+        },
+        {
+            "event": "network_attack",
+            "timestamp": "2023-06-03T20:20:00Z",
+            "sourceIP": "192.168.0.30",
+            "targetIP": "10.0.0.120",
+            "attackType": "Malware",
+            "description": "A malware attack was detected. Source IP 192.168.0.30 attempted to infect the target system with a malicious file.",
+            "attackID": "D5E6F7G8",
+            "protocol": "HTTP",
+            "port": 8080,
+            "targetService": "File server",
+            "mitigationActions": "Isolated the infected system and performed a malware scan."
+        },
+        {
+            "event": "network_attack",
+            "timestamp": "2023-06-04T00:05:00Z",
+            "sourceIP": "192.168.0.50",
+            "targetIP": "10.0.0.500",
+            "attackType": "Password Cracking",
+            "description": "A password cracking attempt was detected. Source IP 192.168.0.50 tried to guess the login credentials of the target.",
+            "attackID": "T5U6V7W8",
+            "protocol": "SSH",
+            "port": 22,
+            "targetService": "SSH server",
+            "mitigationActions": "Implemented account lockout policy and strong password requirements."
+        },
+        {
+            "event": "network_attack",
+            "timestamp": "2023-06-04T01:20:00Z",
+            "sourceIP": "10.6.6.6",
+            "targetIP": "10.0.0.600",
+            "attackType": "Cross-Site Scripting (XSS)",
+            "description": "A cross-site scripting attack was detected. Source IP 10.6.6.6 injected malicious scripts into the target web page.",
+            "attackID": "X1Y2Z3A4",
+            "protocol": "HTTP",
+            "port": 8080,
+            "targetService": "Web application",
+            "mitigationActions": "Implemented output encoding and input validation on the web application."
+        },
+        {
+            "event": "network_attack",
+            "timestamp": "2023-06-04T02:10:00Z",
+            "sourceIP": "192.168.0.60",
+            "targetIP": "10.0.0.700",
+            "attackType": "Malware",
+            "description": "A malware attack was detected. Source IP 192.168.0.60 attempted to infect the target system with a malicious file.",
+            "attackID": "B5C6D7E8",
+            "protocol": "HTTP",
+            "port": 8080,
+            "targetService": "File server",
+            "mitigationActions": "Isolated the infected system and performed a malware scan."
+        },
+        {
+            "event": "network_attack",
+            "timestamp": "2023-06-05T08:15:00Z",
+            "sourceIP": "10.5.5.5",
+            "targetIP": "10.0.0.300",
+            "attackType": "Man-in-the-Middle",
+            "description": "A Man-in-the-Middle attack was detected. Source IP 10.5.5.5 intercepted the communication between two systems.",
+            "attackID": "M1I2T3M4",
+            "protocol": "TCP",
+            "port": 443,
+            "targetService": "Secure web server",
+            "mitigationActions": "Implemented SSL/TLS encryption and certificate pinning to prevent MITM attacks."
+          }
+    ]
+}
