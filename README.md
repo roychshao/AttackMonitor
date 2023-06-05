@@ -5,13 +5,18 @@
 monitoring logs stored in the etcd through etcd watcher to make nodes take actions
 
 ### Getting Start
-first it need a etcd cluster run on a node, to install etcd, see https://etcd.io/docs/v3.5/install/  
-<br/>
+etcd is in docker, install docker first and run follow command
+
+```
+docker compose up
+```
 
 then create a file named **.env**
 ```
 PORT=3000
-ETCD_HOST="localhost:2379"
+ETCD1_PORT=1
+ETCD2_PORT=2
+ETCD3_PORT=3
 ```
 
 <br/>
