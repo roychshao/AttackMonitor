@@ -62,7 +62,7 @@ app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use("/api/data", dataRouter);
 
 app.get("/", (req, res) => {
-    res.send("Hello World!");
+    res.send("Hello World!", process.env.ETCD1_PORT, process.env.ETCD2_PORT, process.env.ETCD3_PORT);
 });
 
 app.listen(port, () => {

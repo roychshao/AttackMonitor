@@ -5,9 +5,9 @@ dotenv.config();
 
 const client = new Etcd3({
     hosts: [
-        `http://localhost:${process.env.ETCD1_PORT}`,
-        `http://localhost:${process.env.ETCD2_PORT}`,
-        `http://localhost:${process.env.ETCD3_PORT}`,
+        `http://node1:${process.env.ETCD1_PORT}`,
+        `http://node2:${process.env.ETCD2_PORT}`,
+        `http://node3:${process.env.ETCD3_PORT}`,
     ],
 })
 
