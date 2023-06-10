@@ -5,12 +5,13 @@ import bodyParser from "body-parser";
 import morgan from "morgan";
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath, URL } from "url";
 import helmet from "helmet";
 
 import dataRouter from "./routes/data.js";
 
 import Writer from "./controller/logProcessor.js";
+import { transformIP } from "./controller/data.js"
 
 const app = express();
 dotenv.config();
@@ -29,7 +30,36 @@ var accessLogStream = fs.createWriteStream(path.join(__dirname, "access.log"), {
     flags: "a",
 });
 
-app.use(morgan("combined", { stream: accessLogStream }));
+// customized ip address
+morgan.token('sourceIP', function (req) {
+    if(req.headers['origin']) {
+        const originPort = new URL(req.headers['origin']).port;
+        const sourceIP = transformIP(originPort);
+        return sourceIP;
+    } else {
+        return '0.0.0.0';
+    }
+});
+
+morgan.token('targetIP', function (req) {
+    if(req.headers['host']) {
+        const originPort = req.headers['host'].split(':').pop();
+        const sourceIP = transformIP(originPort);
+        return sourceIP;
+    } else {
+        return '0.0.0.0';
+    }
+});
+
+app.use(
+  morgan(
+      ':sourceIP -> :targetIP - - [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"',
+    { stream: accessLogStream }
+  )
+);
+
+// frontend file
+app.use(express.static(path.join("/AttackMonitor/frontend/dist")));
 
 // watcher access.log
 fs.watch('access.log', (eventType, filename) => {
@@ -62,12 +92,14 @@ app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use("/api/data", dataRouter);
 
 app.get("/", (req, res) => {
-    res.send("Hello World!", process.env.ETCD1_PORT, process.env.ETCD2_PORT, process.env.ETCD3_PORT);
+    res.send("Hello World!");
 });
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`);
 });
 
-// TODO: get ip from etcd to persistent the bannedIPs or not to use volume in docker (recommended)
-// TODO: make both AP and etcd run on cluster and fix .env.local in /frontend
+/*
+ * Some Route has risks, like GET /.env, /admin, /database, /backup, /config
+ * those Routes can be sensitive to the security of a web application
+ */

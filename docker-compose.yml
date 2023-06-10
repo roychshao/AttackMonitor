@@ -6,8 +6,6 @@ services:
     image: quay.io/coreos/etcd:v3.5.9
     # volumes:
     #   - node1-data:/etcd-data
-    ports:
-      - "${ETCD1_PORT}:2379"
     expose:
       - 2379
       - 2380
@@ -40,8 +38,6 @@ services:
         ipv4_address: 172.16.238.101
     environment:
       - ETCDCTL_API=3
-    ports:
-      - "${ETCD2_PORT}:2379"
     expose:
       - 2379
       - 2380
@@ -68,8 +64,6 @@ services:
         ipv4_address: 172.16.238.102
     environment:
       - ETCDCTL_API=3
-    ports:
-      - "${ETCD3_PORT}:2379"
     expose:
       - 2379
       - 2380
@@ -86,43 +80,46 @@ services:
       - --initial-cluster-token=docker-etcd
       - --auto-compaction-retention=1
       - --auto-compaction-mode=periodic
-  backend1:
-    container_name: backend1
+  application1:
+    container_name: application1
     restart: unless-stopped
-    build: backend
-    command: bash -c "cd /AttackMonitor && pnpm install && node index.js"
+    build: ./
+    command: bash -c "cd /AttackMonitor/frontend && pnpm install && pnpm run build && cd /AttackMonitor/backend && pnpm install && pnpm start"
     environment:
-      - PORT=${PORT}
-      - ETCD1_PORT=${ETCD1_PORT}
-      - ETCD2_PORT=${ETCD2_PORT}
-      - ETCD3_PORT=${ETCD3_PORT}
+      - PORT=3000
+      - ETCD_PORT=2379
+    networks:
+      cluster_net:
+        ipv4_address: 172.16.238.200
     ports:
-      - 3001:${PORT}
-  backend2:
-    container_name: backend2
+      - 3000:3000
+  application2:
+    container_name: application2
     restart: unless-stopped
-    build: backend
-    command: bash -c "cd /AttackMonitor && pnpm install && node index.js"
+    build: ./
+    command: bash -c "cd /AttackMonitor/frontend && pnpm install && pnpm run build && cd /AttackMonitor/backend && pnpm install && pnpm start"
     environment:
-      - PORT=${PORT}
-      - ETCD1_PORT=${ETCD1_PORT}
-      - ETCD2_PORT=${ETCD2_PORT}
-      - ETCD3_PORT=${ETCD3_PORT}
+      - PORT=3001
+      - ETCD_PORT=2379
+    networks:
+      cluster_net:
+        ipv4_address: 172.16.238.201
     ports:
-      - 3002:${PORT}
-  backend3:
-    container_name: backend3
+      - 3001:3001
+  application3:
+    container_name: application3
     restart: unless-stopped
-    build: backend
-    command: bash -c "cd /AttackMonitor && pnpm install && node index.js"
+    build: ./
+    command: bash -c "cd /AttackMonitor/frontend && pnpm install && pnpm run build && cd /AttackMonitor/backend && pnpm install && pnpm start"
     environment:
-      - PORT=${PORT}
-      - ETCD1_PORT=${ETCD1_PORT}
-      - ETCD2_PORT=${ETCD2_PORT}
-      - ETCD3_PORT=${ETCD3_PORT}
+      - PORT=3002
+      - ETCD_PORT=2379
+    networks:
+      cluster_net:
+        ipv4_address: 172.16.238.202
     ports:
-      - 3003:${PORT}
-# volumes:
+      - 3002:3002
+# # volumes:
 #   node1-data:
 #   node2-data:
 #   node3-data:

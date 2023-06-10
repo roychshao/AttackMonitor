@@ -1,21 +1,19 @@
 import { Etcd3 } from 'etcd3';
 import dotenv from 'dotenv';
+import { transformIP } from "./../controller/data.js"
 
 dotenv.config();
 
 const client = new Etcd3({
     hosts: [
-        `http://node1:${process.env.ETCD1_PORT}`,
-        `http://node2:${process.env.ETCD2_PORT}`,
-        `http://node3:${process.env.ETCD3_PORT}`,
+        `http://node1:${process.env.ETCD_PORT}`,
+        `http://node2:${process.env.ETCD_PORT}`,
+        `http://node3:${process.env.ETCD_PORT}`,
     ],
 })
 
 const put = async (data) => {
     return new Promise(async (resolve, reject) => {
-        /*
-         * If use log insertion, add the following lines
-         */
         const regex = /([\w.:]+) - - \[(.*?)\]/;
         const matches = data.match(regex);
         var sourceIP;
@@ -54,29 +52,30 @@ client.watch()
 
             var key = res.events[0].kv.key;
             var value = res.events[0].kv.value;
+            var sourceIP = '0.0.0.0';    // default
+            var targetIP = '0.0.0.0';    // default
 
             key = key.toString('utf-8');
             value = value.toString('utf-8');
+
             const data = JSON.parse(value);
 
             if (data.includes('attack')) {
-                console.log('Received an attack on: ' + key);
-                // ban the sourceIP
-                const regex = /nodes\/([\w:]+)\//;
-                const matches = key.match(regex);
-                var sourceIP;
-
-                if (matches && matches.length >= 2) {
-                    sourceIP = matches[1];
+                // find the origin port from value
+                const regex = /(\b(?:\d{1,3}\.){3}\d{1,3}\b)/g;
+                const match = value.match(regex);
+                if(match && match.length >= 2) {
+                    sourceIP = match[0];
+                    targetIP = match[1];
                 } else {
-                    console.log("err: ipv6 address not matched");
+                    console.log('Port not found');
                 }
-                // if sourceIP not exist in bannedIPs, then add it
-                if(!global.bannedIPs.includes(sourceIP))
+
+                // ban the sourceIP
+                if(transformIP(process.env.PORT) == targetIP && !global.bannedIPs.includes(sourceIP))
                     banIP(sourceIP);
             }
-        })
-            .on('error', err => {
+        }).on('error', err => {
                 console.error('Error:', err);
             });
     })
