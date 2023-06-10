@@ -1,6 +1,6 @@
 import { Etcd3 } from 'etcd3';
 import dotenv from 'dotenv';
-import { transformIP } from "./../controller/data.js"
+import { transformIP } from "./../utils/mapping.js"
 
 dotenv.config();
 

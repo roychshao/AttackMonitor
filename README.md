@@ -5,47 +5,30 @@
 monitoring logs stored in the etcd through etcd watcher to make nodes take actions
 
 ### Getting Start
-etcd is in docker, install docker first and run follow command
-
-```
-docker compose up
-```
-
-then create a file in **/backend** named **.env**
-```
-PORT=3000
-ETCD1_PORT=1
-ETCD2_PORT=2
-ETCD3_PORT=3
-```
-
-Still in /backend  
-Install libraries
-
-```
-pnpm i
-```
-Start the server
-
-```
-pnpm start
-```
-
----
 
 create a file in **/frontend** named **.env.local**
 ```
-VITE_NODE1_URL="http://localhost:3000"   /* for example */
-VITE_NODE2_URL="http://localhost:3000"
-VITE_NODE3_URL="http://localhost:3000"
+VITE_NODE1_URL="http://localhost:3000"
+VITE_NODE2_URL="http://localhost:3001"
+VITE_NODE3_URL="http://localhost:3002"
 ```
 
-Install libraries
+launch docker
+> In the docker cluster, there are three etcd nodes, three application containers and one network container
+
 ```
-pnpm i
+docker compose build
+docker compose up
 ```
 
-start frontend server
+open the following url in the browser, each port is mapped to a fake IP address  
+> it is because of the need to demostrate this application of three nodes within localhost.
+
 ```
-pnpm run dev
+http://localhost:3000 -> 172.16.238.200
+http://localhost:3001 -> 172.16.238.201
+http://localhost:3002 -> 172.16.238.202
 ```
+
+#### Note
+***this application cannot run on one node without docker***

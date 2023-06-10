@@ -7,6 +7,9 @@ dependencies:
   '@emotion/styled':
     specifier: ^11.11.0
     version: 11.11.0(@emotion/react@11.11.0)(@types/react@18.0.37)(react@18.2.0)
+  '@mui/lab':
+    specifier: 5.0.0-alpha.133
+    version: 5.0.0-alpha.133(@emotion/react@11.11.0)(@emotion/styled@11.11.0)(@mui/material@5.13.3)(@types/react@18.0.37)(react-dom@18.2.0)(react@18.2.0)
   '@mui/material':
     specifier: ^5.13.3
     version: 5.13.3(@emotion/react@11.11.0)(@emotion/styled@11.11.0)(@types/react@18.0.37)(react-dom@18.2.0)(react@18.2.0)
@@ -706,8 +709,66 @@ packages:
       react-is: 18.2.0
     dev: false
 
+  /@mui/base@5.0.0-beta.4(@types/react@18.0.37)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-ejhtqYJpjDgHGEljjMBQWZ22yEK0OzIXNa7toJmmXsP4TT3W7xVy8bTJ0TniPDf+JNjrsgfgiFTDGdlEhV1E+g==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      '@types/react': ^17.0.0 || ^18.0.0
+      react: ^17.0.0 || ^18.0.0
+      react-dom: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.22.3
+      '@emotion/is-prop-valid': 1.2.1
+      '@mui/types': 7.2.4(@types/react@18.0.37)
+      '@mui/utils': 5.13.1(react@18.2.0)
+      '@popperjs/core': 2.11.8
+      '@types/react': 18.0.37
+      clsx: 1.2.1
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-is: 18.2.0
+    dev: false
+
   /@mui/core-downloads-tracker@5.13.3:
     resolution: {integrity: sha512-w4//nRIi9fiMow/MmhkForOezd8nc229EpSZZ5DzwpJNOmAXwypFTapOUVAGTUQiTJyeZXUNbQqYuUIrIs2nbg==}
+    dev: false
+
+  /@mui/lab@5.0.0-alpha.133(@emotion/react@11.11.0)(@emotion/styled@11.11.0)(@mui/material@5.13.3)(@types/react@18.0.37)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-pPL5/f6si8eCXlsnOZrO+/zg5Yv6qKa9OpI6nGP77Mpn7iYHm9qrcsWFIBs6YjgxqJf6dA2IqtHaSNOSndrXDw==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      '@emotion/react': ^11.5.0
+      '@emotion/styled': ^11.3.0
+      '@mui/material': ^5.0.0
+      '@types/react': ^17.0.0 || ^18.0.0
+      react: ^17.0.0 || ^18.0.0
+      react-dom: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/react':
+        optional: true
+      '@emotion/styled':
+        optional: true
+      '@types/react':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.22.3
+      '@emotion/react': 11.11.0(@types/react@18.0.37)(react@18.2.0)
+      '@emotion/styled': 11.11.0(@emotion/react@11.11.0)(@types/react@18.0.37)(react@18.2.0)
+      '@mui/base': 5.0.0-beta.4(@types/react@18.0.37)(react-dom@18.2.0)(react@18.2.0)
+      '@mui/material': 5.13.3(@emotion/react@11.11.0)(@emotion/styled@11.11.0)(@types/react@18.0.37)(react-dom@18.2.0)(react@18.2.0)
+      '@mui/system': 5.13.2(@emotion/react@11.11.0)(@emotion/styled@11.11.0)(@types/react@18.0.37)(react@18.2.0)
+      '@mui/types': 7.2.4(@types/react@18.0.37)
+      '@mui/utils': 5.13.1(react@18.2.0)
+      '@types/react': 18.0.37
+      clsx: 1.2.1
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-is: 18.2.0
     dev: false
 
   /@mui/material@5.13.3(@emotion/react@11.11.0)(@emotion/styled@11.11.0)(@types/react@18.0.37)(react-dom@18.2.0)(react@18.2.0):

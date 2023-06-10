@@ -10,8 +10,8 @@ import helmet from "helmet";
 
 import dataRouter from "./routes/data.js";
 
-import Writer from "./controller/logProcessor.js";
-import { transformIP } from "./controller/data.js"
+import Writer from "./utils/logProcessor.js";
+import { transformIP } from "./utils/mapping.js"
 
 const app = express();
 dotenv.config();
