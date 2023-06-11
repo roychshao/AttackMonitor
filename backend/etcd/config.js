@@ -5,11 +5,7 @@ import { transformIP } from "./../utils/mapping.js"
 dotenv.config();
 
 const client = new Etcd3({
-    hosts: [
-        `http://node1:${process.env.ETCD_PORT}`,
-        `http://node2:${process.env.ETCD_PORT}`,
-        `http://node3:${process.env.ETCD_PORT}`,
-    ],
+    hosts: `http://${process.env.ETCD_IP}:${process.env.ETCD_PORT}`,
 })
 
 const put = async (data) => {

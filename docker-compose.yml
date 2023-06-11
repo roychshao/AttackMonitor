@@ -88,6 +88,7 @@ services:
     environment:
       - PORT=3000
       - ETCD_PORT=2379
+      - ETCD_IP=node1
     networks:
       cluster_net:
         ipv4_address: 172.16.238.200
@@ -101,6 +102,7 @@ services:
     environment:
       - PORT=3001
       - ETCD_PORT=2379
+      - ETCD_IP=node2
     networks:
       cluster_net:
         ipv4_address: 172.16.238.201
@@ -114,6 +116,7 @@ services:
     environment:
       - PORT=3002
       - ETCD_PORT=2379
+      - ETCD_IP=node3
     networks:
       cluster_net:
         ipv4_address: 172.16.238.202
