@@ -68,7 +68,7 @@ client.watch()
                 }
 
                 // ban the sourceIP
-                if(!global.bannedIPs.includes(sourceIP))
+                if(transformIP(process.env.PORT) == targetIP && !global.bannedIPs.includes(sourceIP))
                     banIP(sourceIP);
             }
         }).on('error', err => {
