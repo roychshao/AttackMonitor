@@ -22,7 +22,7 @@ docker compose up
 ```
 
 open the following url in the browser, each port is mapped to a fake IP address  
-> it is because of the need to demostrate this application of three nodes within localhost.
+> it is because of the need to demostrate this application of three nodes on localhost.
 
 ```
 http://localhost:3000 -> 172.16.238.200
@@ -31,4 +31,4 @@ http://localhost:3002 -> 172.16.238.202
 ```
 
 #### Note
-***this application cannot run on one node without docker***
+***this application cannot run on a node without docker***
