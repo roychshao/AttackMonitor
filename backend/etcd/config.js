@@ -67,8 +67,11 @@ client.watch()
                     console.log('Port not found');
                 }
 
+                /*
+                 * remove IP checking to let all AP ban the attack node
+                 */
                 // ban the sourceIP
-                if(transformIP(process.env.PORT) == targetIP && !global.bannedIPs.includes(sourceIP))
+                if(/*transformIP(process.env.PORT) == targetIP &&*/ !global.bannedIPs.includes(sourceIP))
                     banIP(sourceIP);
             }
         }).on('error', err => {
